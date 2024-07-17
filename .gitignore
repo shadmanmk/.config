@@ -1,0 +1,15 @@
+# Ignore all files and directories except folder1 and folder2
+/*
+!/.gitignore
+!/dunst/
+!/eww/
+!/fastfetch/
+!/hypr/
+!/kitty/
+!/ranger/
+!/spicetify/config-xpui.ini
+!/spicetify/Themes/
+!/spicetify/CustomApps/
+!/spicetify/Extensions/
+!/wofi/
+!/eww/

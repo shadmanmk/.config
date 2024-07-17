@@ -1,0 +1,19 @@
+#!/bin/bash
+
+## Files and cmd
+EWW="eww -c $HOME/.config/hypr/themes/apatheia/eww/"
+## Run eww daemon if not running already
+if [[ ! $(pidof eww) ]]; then
+    ${EWW} daemon
+    sleep 1
+fi
+# use this for notifications : ${EWW} open-many "sidebar1" "notifications1"
+${EWW} open "sidebar$PRIMARY_MONITOR_ID"
+## Open standard widgets and bar
+NB_MONITORS=($(hyprctl monitors -j | jq -r '.[] | .id'))
+for id in "${NB_MONITORS[@]}"; do
+    # make top bar for every display
+    bar="bar$id"
+    hyprctl dispatch focusmonitor "$id"
+    ${EWW} open "$bar"
+done

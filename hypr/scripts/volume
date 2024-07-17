@@ -1,0 +1,32 @@
+#!/bin/bash
+
+down() {
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- > /dev/null
+    volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}')
+    notify-send "VOLUME" "Decreasing to $volume%" -h int:value:"$volume" -i audio-volume-low-symbolic -r 2593 -u normal
+    
+}
+
+up() {
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ > /dev/null
+    volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}')
+    notify-send "VOLUME" "Increasing to $volume%" -h int:value:"$volume" -i audio-volume-high-symbolic -r 2593 -u normal
+    
+}
+
+mute() {
+    muted=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep '\[MUTED\]')
+    if [ -n "$muted" ]; then
+        wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
+        notify-send "VOLUME" "UNMUTED" -i audio-volume-high-symbolic -u normal
+    else
+        wpctl set-mute @DEFAULT_AUDIO_SINK@ 1
+        notify-send "VOLUME" "MUTED" -i audio-volume-muted-symbolic -u normal
+    fi
+}
+
+case "$1" in
+  up) up;;
+  down) down;;
+  mute) mute;;
+esac
