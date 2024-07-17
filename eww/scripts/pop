@@ -1,0 +1,20 @@
+#!/bin/bash
+
+
+# select widget for focused monitor
+focusmon=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .id')
+# console parameter + display id 
+WIDGET="$1${focusmon}"
+
+widgets_to_close="(system)|(audio_ctl)|(calendar)"
+
+# Open widgets
+if eww list-windows | grep ^$WIDGET$ ; then
+    open_sus_windows=$(eww active-windows | awk -F: " /^(${widgets_to_close})/ { print \$1 }" | tr '\n' ' ')
+    eww close $open_sus_windows
+    if [[ "$(grep "$WIDGET" <<< $open_sus_windows)" = "" ]]; then
+        eww open "$WIDGET"
+    fi
+else
+    exit 1
+fi

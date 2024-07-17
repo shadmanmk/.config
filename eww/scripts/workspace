@@ -1,0 +1,76 @@
+#!/bin/bash
+
+# Define icons for workspaces 1-9
+ic=(0 一 二 三 四 五 六 七 八)
+
+localDir=$(dirname "$0")
+
+# Initial check for occupied workspaces
+for num in $(hyprctl workspaces | grep ID | awk '{print $3}'); do 
+  export o"$num"="$num"
+done
+
+# Initial check for focused workspace
+focused_num=$(hyprctl monitors | grep -B 4 "focused: yes" | awk 'NR==1{print $3}')
+if [ -n "$focused_num" ]; then
+  export f"$focused_num"="$focused_num"
+  export fnum="f$focused_num"
+  export mon=$(hyprctl monitors | grep -B 2 "\($focused_num\)" | awk 'NR==1{print $2}')
+fi
+
+workspaces() {
+  local event="$1"
+  case "$event" in
+    workspacev2*)
+      if [[ "${event:13:7}" != "special" ]]; then
+        unset "$fnum"
+        local num=${event:13}
+        num=${num##*,}
+        export f"$num"="$num"
+        export fnum="f$num"
+      fi
+      ;;
+    focusedmon*)
+      unset "$fnum"
+      local string=${event:12}
+      local num=${string##*,}
+      export mon=${string/,*/}
+      export f"$num"="$num"
+      export fnum="f$num"
+      ;;
+    moveworkspace*)
+      if [[ ${event##*,} == "$mon" ]]; then
+        unset "$fnum"
+        local string=${event:15}
+        local num=${string/,*/}
+        export f"$num"="$num"
+        export fnum="f$num"
+      fi
+      ;;
+    createworkspace*)
+      local num=${event:17}
+      export o"$num"="$num"
+      ;;
+    destroyworkspace*)
+      local num=${event:18}
+      unset o"$num"
+      ;;
+  esac
+}
+
+module() {
+  local wknames=(a a$o1$f1 a$o2$f2 a$o3$f3 a$o4$f4 a$o5$f5 a$o6$f6 a$o7$f7 a$o8$f8 a$o9$f9 a$o10$f10)
+  echo "(eventbox :onscroll \"echo {} | sed -e 's/up/-1/g' -e 's/down/+1/g' | xargs hyprctl dispatch workspace\" \
+          (box :class 'works' :orientation 'h' :spacing 5 :space-evenly 'false' :valign 'center' \
+              "$(for i in {1..10}; do printf "(button :onclick \\\"hyprctl dispatch workspace $i\\\" :onrightclick \\\"hyprctl dispatch workspace $i && ${localDir}/default_app $i\\\" :class \\\"ws-btn ${wknames[i]}\\\" \\\"${ic[i]}\\\")"; done) " \
+          )\
+        )"
+}
+
+module
+
+# Listen for events from Hyprland and update workspaces and module accordingly
+socat -u UNIX-CONNECT:"$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" - | while read -r event; do
+  workspaces "$event"
+  module
+done
