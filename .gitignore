@@ -1,6 +1,10 @@
-# Ignore all files and directories except folder1 and folder2
-/*
+# Ignore everything by default
+*
+
+# Allow this .gitignore file
 !/.gitignore
+
+# Allow specific directories and files
 !/dunst/
 !/eww/
 !/fastfetch/
@@ -12,4 +16,3 @@
 !/spicetify/CustomApps/
 !/spicetify/Extensions/
 !/wofi/
-!/eww/
