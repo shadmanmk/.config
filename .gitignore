@@ -4,7 +4,7 @@
 # Allow this .gitignore file
 !/.gitignore
 
-# Allow specific directories and files
+# Allow specific directories
 !/dunst/
 !/eww/
 !/fastfetch/
@@ -16,3 +16,6 @@
 !/spicetify/CustomApps/
 !/spicetify/Extensions/
 !/wofi/
+
+# Allow specific files
+!/.bashrc
