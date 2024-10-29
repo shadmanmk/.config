@@ -5,17 +5,18 @@
 !/.gitignore
 
 # Allow specific directories
-!/dunst/
-!/eww/
-!/fastfetch/
-!/hypr/
-!/kitty/
-!/ranger/
+!/dunst/*
+!/eww/*
+!/fastfetch/*
+!/hypr/*
+!/kitty/*
+!/ranger/*
 !/spicetify/config-xpui.ini
 !/spicetify/Themes/
 !/spicetify/CustomApps/
 !/spicetify/Extensions/
-!/wofi/
+!/wofi/*
 
 # Allow specific files
 !/.bashrc
+!/starship.toml
