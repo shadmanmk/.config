@@ -1,22 +1,22 @@
 # Ignore everything by default
-*
+/*
 
 # Allow this .gitignore file
-!/.gitignore
+!.gitignore
 
 # Allow specific directories
-!/dunst/*
-!/eww/*
-!/fastfetch/*
-!/hypr/*
-!/kitty/*
-!/ranger/*
-!/spicetify/config-xpui.ini
-!/spicetify/Themes/
-!/spicetify/CustomApps/
-!/spicetify/Extensions/
-!/wofi/*
+!dunst/
+!eww/
+!fastfetch/
+!hypr/
+!kitty/
+!ranger/
+!spicetify/config-xpui.ini
+!spicetify/Themes/
+!spicetify/CustomApps/
+!spicetify/Extensions/
+!wofi/
 
 # Allow specific files
-!/.bashrc
-!/starship.toml
+!.bashrc
+!starship.toml
