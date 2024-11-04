@@ -19,4 +19,6 @@
 
 # Allow specific files
 !.bashrc
+!Code/User/settings.json
+!fontconfig/fonts.conf
 !starship.toml
