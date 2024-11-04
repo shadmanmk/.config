@@ -1,0 +1,15 @@
+set linenumbers
+set minibar
+set nohelp
+
+include /usr/share/nano/*.nanorc
+
+bind ^X cut main
+bind ^C copy main
+bind ^V paste all
+bind ^Q exit all
+bind ^S savefile main
+bind ^F whereis all
+bind ^G findnext all
+bind ^Z undo main
+bind ^Y redo main

@@ -16,7 +16,7 @@ alias gg='shutdown 00'
 alias gp='git push origin main'
 alias grep='grep --color=auto'
 alias gs='git status'
-alias ls='ls --color=auto'
+alias ls='ls --color=auto -a'
 
 PS1='[\u@\h \W]\$ '
 

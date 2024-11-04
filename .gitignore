@@ -21,4 +21,5 @@
 !.bashrc
 !Code/User/settings.json
 !fontconfig/fonts.conf
+!.nanorc
 !starship.toml
