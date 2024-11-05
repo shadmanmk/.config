@@ -5,6 +5,7 @@
 !.gitignore
 
 # Allow specific directories
+!btop/
 !dunst/
 !eww/
 !fastfetch/
@@ -12,14 +13,14 @@
 !kitty/
 !ranger/
 !spicetify/config-xpui.ini
-!spicetify/Themes/
 !spicetify/CustomApps/
 !spicetify/Extensions/
+!spicetify/Themes/
 !wofi/
 
 # Allow specific files
 !.bashrc
+!.nanorc
 !Code/User/settings.json
 !fontconfig/fonts.conf
-!.nanorc
 !starship.toml
