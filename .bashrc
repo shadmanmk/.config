@@ -9,10 +9,12 @@ export VISUAL=nano
 export EDITOR=$VISUAL
 
 alias cls='clear'
+alias cdc='cd .config/'
 alias divljinna='shutdown 00'
 alias ff='fastfetch'
 alias ga='git add .'
 alias gg='shutdown 00'
+alias gm='git commit -m'
 alias gp='git push origin main'
 alias grep='grep --color=auto'
 alias gs='git status'
