@@ -25,3 +25,8 @@ export w1="$random_wallpaper"
 # Optionally, print out the variables for verification
 echo "w0: $w0"
 echo "w1: $w1"
+
+# Stop and restart Hyprpaper to apply the new wallpaper
+pkill hyprpaper
+sleep 1  # Give it a moment to fully stop
+hyprpaper &  # Start Hyprpaper again in the background
