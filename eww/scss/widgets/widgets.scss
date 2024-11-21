@@ -69,12 +69,6 @@ tooltip label {
     border-radius: 10px;
 }
 
-.batbar {
-    color: $green;
-    background-color: $widget-background;
-    border-radius: 10px;
-}
-
 .brightbar trough highlight {
     background-image: linear-gradient(to right, $yellow 30%, $white 50%, $yellow 100% *50);
     border-radius: 10px;
@@ -86,24 +80,9 @@ tooltip label {
 }
 
 .volume_icon {
-    font-size: 24;
+    font-size: 28;
     color: $teal;
     margin: 0px 10px 0px 5px;
-}
-
-
-.module_essid {
-    font-family: JetBrainsMono Nerd Font;
-    font-size: 18;
-    font-weight: bold;
-    color: $purple;
-    margin: 0px 0px 0px 5px;
-}
-
-.module-wif {
-    font-size: 24;
-    color: $purple;
-    margin: 0px 15px 0px 5px;
 }
 
 .icon-launcher {
@@ -120,29 +99,20 @@ tooltip label {
 
 .iconmem {
     color: $red;
-}
-
-.iconbat {
-    color: $green;
-}
-
-.iconbat,
-.iconmem {
     font-size: 15;
     margin: 10px;
 }
 
 .bright_icon {
     // font-family: JetBrainsMono Nerd Font;
-    font-size: 24;
+    font-size: 28;
     color: $yellow;
     margin: 0px 15px 0px 0px;
 }
 
-
 .separ {
-    color: $grey;
-    // font-weight: bold;
+    color: $black;
+    font-weight: bold;
     font-size: 24px;
     margin: 0px 8px 0px 8px;
 }
@@ -155,12 +125,6 @@ tooltip label {
     background-color: rgba(00, 00, 00, 0.0);
     border-radius: 16px;
     margin: 0px 5px 0px 3px;
-}
-
-.bat_module {
-    background-color: rgba(00, 00, 00, 0.0);
-    border-radius: 16px;
-    margin: 0px 10px 0px 5px;
 }
 
 .works {
@@ -263,21 +227,18 @@ calendar:indeterminate {
     margin: 0px 10px 0px 10px;
 }
 
-.sys_text_bat_sub,
 .sys_text_mem_sub {
     font-size: 16;
     color: $white;
     margin: 2px 0px 0px 25px;
 }
 
-.sys_text_bat,
 .sys_text_mem {
     font-size: 21;
     font-weight: bold;
     margin: 0px 0px 0px 25px;
 }
 
-.sys_icon_bat,
 .sys_icon_mem {
     font-size: 30;
     margin: 30px;
@@ -288,31 +249,15 @@ calendar:indeterminate {
     border-radius: 25px;
 }
 
-.sys_bat {
-    color: $green;
-    background-color: $widget-background;
-    border-radius: 10px;
-}
-
 .sys_mem {
     color: $orange;
     background-color: $widget-background;
     border-radius: 10px;
 }
 
-.sys_icon_bat,
-.sys_text_bat {
-    color: $green;
-}
-
 .sys_icon_mem,
 .sys_text_mem {
     color: $orange;
-}
-
-.sys_bat_box {
-    border-radius: 16px;
-    margin: 15px 10px 0px 20px;
 }
 
 .sys_mem_box {
@@ -393,9 +338,6 @@ calendar:indeterminate {
     margin: 0px 0px 5px 0px;
 }
 
-
-
-
 .mic_icon {
     background-size: cover;
     background-image: url('images/mic.png');
@@ -434,6 +376,7 @@ calendar:indeterminate {
     font-size: 18;
     margin: 0px 0px 0px 0px;
 }
+
 // weather
 .weather {
     all: unset;
@@ -483,20 +426,6 @@ calendar:indeterminate {
     font-family: Cartograph CF;
     box-shadow: 0px 0px 6px 6px rgb(0, 0, 0, .4);
 }
-
-// .stats-box {
-//     all: unset;
-//     background-color: $widget-background;
-//     padding: 20px 25px 20px 25px;
-//     border-radius: 12px;
-//     // box-shadow: 0px 0px 6px 6px rgb(0, 0, 0, .4);
-// }
-
-// .stats-icon {
-//     font-size: 28px;
-//     color: $red;
-//     font-family: JetBrainsMono Nerd Font Mono;
-// }
 
 scale trough {
     all: unset;
@@ -627,7 +556,7 @@ scale trough {
 
 .notification-icon {
     color: $white;
-    font-size: 36px;
+    font-size: 30px;
     margin: 0px 20px 0px 10px;
 }
 
