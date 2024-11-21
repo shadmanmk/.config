@@ -12,13 +12,9 @@
 (defpoll clock_date :interval "1h" "date '+%b %d, %Y'")
 (defpoll calendar_day :interval "2h" "date '+%d'")
 (defpoll calendar_year :interval "2h" "date '+%Y'")
-(defpoll volume_percent :interval "1s"  "scripts/sbvol --get")
-; (defpoll mic_percent :interval "3s" "amixer -D pulse sget Capture | grep 'Left:' | awk -F'[][]' '{ print $2 }' | tr -d '%' | head -n 1")
-(defpoll mic_percent :interval "3s" "amixer -D pulse sget Capture | grep 'Mono:' | awk -F'[][]' '{ print $2 }' | tr -d '%' | head -n 1")
-(defpoll brightness_percent :interval "5s" "light")
-;--this is the one we disabled--(defpoll ESSID_WLAN :interval "100s" "nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d: -f2")
-;--this is the one we disabled--(defpoll WLAN_ICON :interval "100s" `nmcli -t -f SIGNAL,ACTIVE device wifi \
-;--this is the one we disabled--    | awk -F':' '{if($2=="yes")print$1}'`)
+(defpoll volume_percent :interval "5s"  "scripts/sbvol --get-volume")
+(defpoll mic_percent :interval "3s" "wpctl get-volume @DEFAULT_AUDIO_INPUT@ | awk '{print $2}' | tr -d '%'")
+(defpoll brightness_percent :interval "1h" "light")
 (deflisten workspace "scripts/workspace")
 (deflisten appname "scripts/appname")
 
@@ -127,56 +123,11 @@
           :tooltip "${volume_percent}%"
           :max 100
           :min 0
-        :onchange "amixer -D pulse sset Master {}%" ))
+        :onchange "wpctl set-volume @DEFAULT_AUDIO_DEVICE@ {}%" ))
       (button
         :onclick "scripts/pop audio_ctl"
         :class "volume_icon"
       "墳"))))
-
-;(defwidget wifi []
-;  (eventbox
-;    :onhover "${EWW_CMD} update wifi_rev=true"
-;    :onhoverlost "${EWW_CMD} update wifi_rev=false"
-;    (box
-;      :vexpand "false"
-;      :hexpand "false"
-;      :space-evenly "false"
-;      (revealer
-;        :transition "slideright"
-;        :reveal wifi_rev
-;        :duration "350ms"
-;        (label
-;          :class "module_essid"
-;          :text ESSID_WLAN
-;        ))
-;      (button
-;        :onclick "~/.config/hypr/scripts/exec_wofi wifi"
-;      ;  (_network :strength WLAN_ICON :offline "󰤮" :excellent "󰤨" :good "󰤥" :okay "󰤢" :slow "󰤟"
-;       (_network :strength WLAN_ICON :offline "睊" :excellent "" :good "" :okay "" :slow ""
-;)))))
-
-(defwidget _network [strength offline excellent good okay slow]
-    (label 
-      :class "module-wif"
-      :text {strength == "" ? offline :
-      strength < 26 ? slow :
-        strength < 51 ? okay :
-          strength < 76 ? good : excellent}))
-
-(defwidget bat []
-  (box
-    :class "bat_module"
-    :vexpand "false"
-    :hexpand "false"
-    (circular-progress
-      :value {EWW_BATTERY["BAT0"].capacity}
-      :class "batbar"
-      :thickness 4
-      (button
-        :onclick "scripts/pop system"
-        :class "iconbat"
-        :tooltip "battery on ${EWW_BATTERY["BAT0"].capacity}%"
-      ""))))
 
 (defwidget mem []
   (box
@@ -269,7 +220,6 @@
     :class "right_modules"
     (bright)
     (volume)
-;    (wifi)
     (sep)
     (bat)
     (mem)
@@ -287,7 +237,7 @@
     (right)
   ))
 
-;; bars for your 3 screens (one for each)
+; bars for your 3 screens (one for each)
 (defwindow bar0
   :monitor 0
   :exclusive true
@@ -300,16 +250,6 @@
   (bar_layout))
 (defwindow bar1
   :monitor 1
-  :exclusive true
-  :geometry (geometry
-    :width "100%"
-    :height "50px"
-  :anchor "top center")
-  :stacking "fg"
-  :windowtype "dock"
-  (bar_layout))
-(defwindow bar2
-  :monitor 2
   :exclusive true
   :geometry (geometry
     :width "100%"
@@ -352,7 +292,7 @@
           (scale
             :value volume_percent
             :orientation "h"
-            :onchange "amixer -D pulse sset Master {}%"
+            :onchange "wpctl set-volume @DEFAULT_AUDIO_DEVICE@ {}%"
             :tooltip "volume on ${volume_percent}%"
             :max 100
           :min 0))))
@@ -387,7 +327,7 @@
             :value mic_percent
             :orientation "h"
             :tooltip "mic on ${mic_percent}%"
-            :onchange "amixer -D pulse sset Capture {}%"
+            :onchange "wpctl set-volume @DEFAULT_AUDIO_INPUT@ {}%"
             :max 100
           :min 0))))))
 
@@ -397,8 +337,8 @@
     :screen 1
     :monitor 0
     :geometry (geometry
-      :x "20"
-      :y "7%"
+      :x "190"
+      :y "0"
       :anchor "top right"
       :width "280px"
     :height "60px")
@@ -410,27 +350,14 @@
   :screen 1
   :monitor 1
   :geometry (geometry
-    :x "20"
-    :y "7%"
-    :anchor "top right"
-    :width "280px"
-  :height "60px")
-  (audio))
-    
-(defwindow audio_ctl2
-  :stacking "fg"
-  :focusable "false"
-  :screen 1
-  :monitor 2
-  :geometry (geometry
-    :x "20"
-    :y "7%"
+    :x "190"
+    :y "0"
     :anchor "top right"
     :width "280px"
   :height "60px")
   (audio))
 
-;;Define System widget
+; Define System widget
 (defwidget system []
   (box
     :class "sys_win"
@@ -439,41 +366,6 @@
     :hexpand "false"
     :vexpand "false"
     :spacing 0
-    (box
-      :class "sys_bat_box"
-      :orientation "h"
-      :space-evenly "false"
-      (circular-progress
-        :value {EWW_BATTERY["BAT0"].capacity}
-        :class "sys_bat"
-        :thickness 9
-        (label :text ""
-          :class "sys_icon_bat"
-          :limit-width 2
-        :wrap false))
-      (box
-        :orientation "v"
-        :space-evenly "false"
-        :spacing 0
-        :hexpand "false"
-        :vexpand "false"
-        (label
-          :text "battery"
-          :halign "start"
-          :class "sys_text_bat"
-          :limit-width 9
-        :wrap false)
-        (label
-          :text "${EWW_BATTERY["BAT0"].capacity}%"
-          :halign "start"
-          :class "sys_text_bat_sub"
-          :limit-width 22
-        :wrap false)
-        (label :text "${EWW_BATTERY["BAT0"].status}"
-          :halign "start"
-          :class "sys_text_bat_sub"
-          :limit-width 22
-        :wrap false)))
     (label
       :text "____________________________________"
       :class "sys_sep"
@@ -526,7 +418,7 @@
   :geometry
   (geometry
     :x "20"
-    :y "65px"
+    :y "0px"
     :anchor "top right"
     :width "290px"
   :height "120px")
@@ -540,21 +432,7 @@
   :geometry
   (geometry
     :x "20"
-    :y "65px"
-    :anchor "top right"
-    :width "290px"
-  :height "120px")
-  (system))
-
-(defwindow system2
-  :stacking "fg"
-  :focusable "false"
-  :screen 1
-  :monitor 2
-  :geometry
-  (geometry
-    :x "20"
-    :y "65px"
+    :y "0px"
     :anchor "top right"
     :width "290px"
   :height "120px")
@@ -578,7 +456,7 @@
   :monitor 0
   :geometry (geometry
     :x "20"
-    :y "65px"
+    :y "0px"
     :anchor "top right"
     :width "270px"
   :height "60px")
@@ -591,20 +469,7 @@
   :monitor 1
   :geometry (geometry
     :x "20"
-    :y "65px"
-    :anchor "top right"
-    :width "270px"
-  :height "60px")
-  (cal))
-    
-(defwindow calendar2
-  :stacking "fg"
-  :focusable "false"
-  :screen 1
-  :monitor 2
-  :geometry (geometry
-    :x "20"
-    :y "65px"
+    :y "0px"
     :anchor "top right"
     :width "270px"
   :height "60px")
