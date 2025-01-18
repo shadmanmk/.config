@@ -9,3 +9,9 @@
 2025/01/09 (09:03:53) | ===> btop++ v.1.4.0
 2025/01/09 (09:03:53) | ERROR: Stall in Runner thread, restarting!
 2025/01/09 (09:04:00) | ERROR: Stall in Runner thread, restarting!
+
+2025/01/18 (14:49:45) | ===> btop++ v.1.4.0
+2025/01/18 (14:49:45) | WARNING: ROCm SMI: Failed to get maximum GPU temperature, defaulting to 110°C
+
+2025/01/18 (14:50:42) | ===> btop++ v.1.4.0
+2025/01/18 (14:50:42) | WARNING: ROCm SMI: Failed to get maximum GPU temperature, defaulting to 110°C
