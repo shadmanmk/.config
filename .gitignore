@@ -16,6 +16,8 @@
 !spicetify/CustomApps/
 !spicetify/Extensions/
 !spicetify/Themes/
+!superfile/
+!waybar/
 !wofi/
 
 # Allow specific files

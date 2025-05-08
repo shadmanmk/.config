@@ -1,0 +1,8 @@
+{
+    "output": ["DP-2"], // Replace with your actual monitor identifier
+    "hyprland/workspaces": {
+      "persistent_workspaces": {
+        "DP-2": [1, 2, 3, 4] // Workspaces 1-4 on monitor 1
+      }
+    }
+  }
