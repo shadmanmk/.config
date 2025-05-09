@@ -7,59 +7,50 @@
   "modules-left": ["custom/launcher"],
   "modules-center": ["hyprland/workspaces"],
   "modules-right": ["memory", "network", "tray", "clock"],
-
   // Hyprland-specific configuration
   "hyprland/workspaces": {
     "format": "{icon}",
     "format-icons": {
-      "1": "一", "2": "二", "3": "三", "4": "四",
-      "5": "五", "6": "六", "7": "七", "8": "八",
+      "1": "(one)",
+      "2": "(two)",
+      "3": "(three)",
+      "4": "(four)",
+      "5": "(five)",
+      "6": "(six)",
+      "7": "(seven)",
+      "8": "(eight)",
       "default": "○",
       "urgent": "!"
-      },
+    },
     "on-click": "activate",
     "all-outputs": false, // Each monitor shows only its workspaces
     "active-only": false // Show all workspaces assigned to monitor
-    },
+  },
   "tray": {
     "spacing": 10,
     "icon-size": 18
-    // "icons": {
-    //   "steam": "",
-    //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
-    //   }
-    },
+  },
   "memory": {
-    "interval": 5,  // Update every 5 seconds
+    "interval": 5, // Update every 5 seconds
     "format": "<span color='#f38ba8'> </span><span color='#cdd6f4'>{used:0.1f}G</span>",
     "tooltip": true
-    },
+  },
   "network": {
-    "format-ethernet": "<span color='#ffa216'> </span><span color='#cdd6f4'>{ipaddr}/{cidr}</span>",
-    "format-linked": "{ifname} (No IP) ",
-    "format-disconnected": "⚠ No Network",
-    "format-alt": "{ifname}: {ipaddr}/{cidr}"
-    },
-    "clock": {
-      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-      "format": "<span color='#89b4fa'>󰥔 </span><span color='#cdd6f4'>{:%H:%M * %a %d %b}</span>",
-      "format-alt": "{:%Y-%m-%d}"
-    },
-    "custom/power": {
-        "format" : "⏻ ",
-		    "tooltip": false,
-		    "menu": "on-click",
-		    "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
-		    "menu-actions": {
-			    "shutdown": "shutdown",
-			    "reboot": "reboot",
-			    "suspend": "systemctl suspend",
-			    "hibernate": "systemctl hibernate"
-		    }
-    },
-    "custom/launcher": {
-      "format": " ",
-      "on-click": "wofi --show drun",
-      "tooltip": false
+    "format-ethernet": "<span color='#ffa216'> </span><span color='#cdd6f4'>connected</span>",
+    "format-linked": "<span color='#ff0048'>󰈀 </span><span color='#cdd6f4'>no IP</span>",
+    "format-disconnected": "<span color='#ff0048'>󰈀 </span><span color='#cdd6f4'>disconnected</span>",
+    "tooltip-format": "<span color='#ffa216'>{ifname}:</span>{ipaddr}"
+  },
+  "clock": {
+    "format": "<span color='#89b4fa'>󰥔 </span><span color='#cdd6f4'>{:%H:%M}</span> <span color='#89b4fa'>📆</span>",
+    "tooltip-format": "<big>{:%a, %d %B %Y}</big>\n<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "on-scroll": 1
     }
+  },
+  "custom/launcher": {
+    "format": " ",
+    "on-click": "wofi --show drun",
+    "tooltip": false
+  }
 }

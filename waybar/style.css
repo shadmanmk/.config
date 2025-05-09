@@ -1,9 +1,9 @@
 * {
   border: none;
   border-radius: 6px;
-  font-family: "CaskaydiaMono Nerd Font";
-  font-weight: bold;
-  font-size: 18px;
+  font-family: "CaskaydiaMono Nerd Font Propo";
+  /* font-weight: bold; */
+  font-size: 20px;
   min-height: 0;
   background: rgba(0, 0, 0, 0);
 }
@@ -15,7 +15,7 @@ tooltip {
 }
 #workspaces button {
   color: #313244;
-  margin-right: 5px;
+  margin-right: 8px;
   padding: 0;
 }
 #workspaces button.active {
@@ -32,6 +32,11 @@ tooltip {
 }
 #workspaces button.urgent {
   color: #f38ba8;
+}
+#workspaces button:hover {
+  color: #f38ba8; /* Highlight */
+  box-shadow: none; /* Removes any shadow effects */
+  text-shadow: none; /* Disables text glow */
 }
 #workspaces,
 #memory,
