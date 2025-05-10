@@ -43,7 +43,7 @@
   },
   "clock": {
     "format": "<span color='#89b4fa'>󰥔 </span><span color='#cdd6f4'>{:%H:%M}</span> <span color='#89b4fa'>📆</span>",
-    "tooltip-format": "<big>{:%a, %d %B %Y}</big>\n<tt><small>{calendar}</small></tt>",
+    "tooltip-format": "<big>{:%A %d}</big>\n<tt><small>{calendar}</small></tt>",
     "calendar": {
       "on-scroll": 1
     }
